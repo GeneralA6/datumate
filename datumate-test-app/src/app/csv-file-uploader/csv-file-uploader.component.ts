@@ -26,6 +26,7 @@ export class FileInputComponent {
     this.parseCsvFile(file).subscribe((csvContent) => {
       const csvFileData: CsvFileData = { name: file.name, data: csvContent as any[] };
       this.load.emit(csvFileData);
+      $event.target.value = null;
     });
   }
 
