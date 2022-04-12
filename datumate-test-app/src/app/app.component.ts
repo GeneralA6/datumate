@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { CsvFileData } from './csv-file-uploader/csv-file-uploader.component';
+import { CsvFileData, GcpData } from './csv-file-uploader/csv-file-uploader.component';
 import { GcpStoreService } from './gcp-store/gcp-store.service';
 
 @Component({
@@ -8,16 +8,17 @@ import { GcpStoreService } from './gcp-store/gcp-store.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  gcpData: GcpData[] = [];
   gcpFilenames: string[] = [];
   private destroy = new Subject<void>();
 
   constructor(private readonly gcpStoreService: GcpStoreService) {
-    this.gcpStoreService.gcpFiles
-       .pipe(takeUntil(this.destroy))
-       .subscribe((gcpFilenames: any) => {
-         this.gcpFilenames = gcpFilenames;
-       });
+  }
+
+  ngOnInit() {
+    this.initGcpData();
+    this.initGcpFileNames();
   }
 
   ngOnDestroy() {
@@ -31,5 +32,21 @@ export class AppComponent {
 
   deleteGcpFile(fileName: string) {
     this.gcpStoreService.removeGcpFileData(fileName);
+  }
+
+  private initGcpFileNames() {
+    this.gcpStoreService.gcpFiles
+       .pipe(takeUntil(this.destroy))
+       .subscribe((gcpFilenames: string[]) => {
+         this.gcpFilenames = gcpFilenames;
+       });
+  }
+
+  private initGcpData() {
+    this.gcpStoreService.gcpData
+       .pipe(takeUntil(this.destroy))
+       .subscribe((gcpData: GcpData[]) => {
+         this.gcpData = gcpData;
+       });
   }
 }
