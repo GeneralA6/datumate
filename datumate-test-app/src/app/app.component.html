@@ -1,1 +1,5 @@
 <app-csv-file-uploader (load)="loadCsvFileData($event)"></app-csv-file-uploader>
+<app-file-records-list
+        [csvFiles]="gcpFilenames"
+        (delete)="deleteGcpFile($event)"
+></app-file-records-list>
