@@ -1,0 +1,10 @@
+@mixin button-styles {
+  border: 1px solid #c3c3c3;
+  background: #fff;
+  border-radius: 3px;
+  transition: background-color 0.2s ease-in-out;
+  &:focus,
+  &:hover {
+    background: #f6f6f6;
+  }
+}

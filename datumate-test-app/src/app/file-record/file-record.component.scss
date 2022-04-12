@@ -1,0 +1,12 @@
+@use "src/common/styles/button";
+
+:host {
+  display: flex;
+  padding: 10px;
+  .file-name {
+    width: 100%;
+  }
+  .delete-button {
+    @include button.button-styles;
+  }
+}

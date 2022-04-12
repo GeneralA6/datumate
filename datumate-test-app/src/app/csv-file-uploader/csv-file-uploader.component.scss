@@ -1,0 +1,10 @@
+@use "src/common/styles/button";
+
+:host {
+  padding: 0 10px;
+}
+
+.button {
+  width: 100%;
+  @include button.button-styles;
+}

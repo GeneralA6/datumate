@@ -1,8 +1,12 @@
-<app-csv-file-uploader (load)="loadCsvFileData($event)"></app-csv-file-uploader>
+<section class="wrapper">
+    <h1 class="title">GCP Viewer</h1>
 
-<app-file-records-list
-        [csvFiles]="gcpFilenames"
-        (delete)="deleteGcpFile($event)"
-></app-file-records-list>
+    <div class="gcp-wrapper">
+        <article class="gcp-side-panel">
+            <app-csv-file-uploader (load)="loadCsvFileData($event)"></app-csv-file-uploader>
+            <app-file-records-list [csvFiles]="gcpFilenames" (delete)="deleteGcpFile($event)"></app-file-records-list>
+        </article>
 
-<app-gcp-grid [gcpData]="gcpData"></app-gcp-grid>
+        <app-gcp-grid [gcpData]="gcpData"></app-gcp-grid>
+    </div>
+</section>
