@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { FileInputComponent } from './csv-file-uploader/csv-file-uploader.component';
 import { FileRecordComponent } from './file-record/file-record.component';
 import { FileRecordsListComponent } from './file-records-list/file-records-list.component';
+import { GcpGridComponent } from './gcp-grid/gcp-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FileInputComponent,
     FileRecordComponent,
-    FileRecordsListComponent
+    FileRecordsListComponent,
+    GcpGridComponent
   ],
   imports: [
     BrowserModule,
