@@ -12,7 +12,7 @@ export interface CsvFileData {
   templateUrl: './csv-file-uploader.component.html',
   styleUrls: ['./csv-file-uploader.component.scss']
 })
-export class CsvFileUploaderComponent {
+export class FileInputComponent {
   @Output() load = new EventEmitter<CsvFileData>();
 
   @ViewChild('inputElement') inputElement!: ElementRef;
