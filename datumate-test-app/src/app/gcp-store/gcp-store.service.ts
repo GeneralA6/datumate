@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { CsvFileData } from '../csv-file-uploader/csv-file-uploader.component';
+import { CsvFileData, GcpData } from '../csv-file-uploader/csv-file-uploader.component';
 
 @Injectable({
    providedIn: 'root'
 })
 export class GcpStoreService {
-   private gcpFilesStore = new BehaviorSubject(new Map<string, any>());
-   gcpData: Observable<any[]>;
+   private gcpFilesStore = new BehaviorSubject(new Map<string, GcpData[]>());
+   gcpData: Observable<GcpData[]>;
    gcpFiles: Observable<string[]>;
 
    constructor() {
@@ -17,7 +17,7 @@ export class GcpStoreService {
 
    addGcpFileData(csvFileData: CsvFileData) {
       const fileName: string = csvFileData.name;
-      const gcpFilesStoreSnapshot: Map<string, any> = this.gcpFilesStore.value;
+      const gcpFilesStoreSnapshot: Map<string, GcpData[]> = this.gcpFilesStore.value;
 
       if (gcpFilesStoreSnapshot.has(fileName)) {
          return;
@@ -28,17 +28,19 @@ export class GcpStoreService {
    }
 
    removeGcpFileData(fileName: string) {
-      const gcpFilesStoreSnapshot: Map<string, any> = this.gcpFilesStore.value;
+      const gcpFilesStoreSnapshot: Map<string, GcpData[]> = this.gcpFilesStore.value;
 
       gcpFilesStoreSnapshot.delete(fileName);
 
       this.gcpFilesStore.next(gcpFilesStoreSnapshot);
    }
 
-   private convertGcpFilesStoreToGcpDataObservable(): Observable<any[]> {
+   private convertGcpFilesStoreToGcpDataObservable(): Observable<GcpData[]> {
       return this.gcpFilesStore.asObservable().pipe(
          map(gcpFilesStoreSnapshot => {
-            return [ ...gcpFilesStoreSnapshot ].map(([ key, value ]) => (value));
+            return [ ...gcpFilesStoreSnapshot ]
+               .map(([ key, value ]) => (value))
+               .flat();
          }));
    }
 

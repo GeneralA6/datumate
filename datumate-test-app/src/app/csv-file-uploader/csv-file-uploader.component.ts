@@ -4,7 +4,14 @@ import { catchError, EMPTY, Observable } from 'rxjs';
 
 export interface CsvFileData {
   name: string;
-  data: any[];
+  data: GcpData[];
+}
+
+export interface GcpData {
+  name: string;
+  n: string;
+  e: string;
+  h: string;
 }
 
 @Component({
@@ -24,8 +31,9 @@ export class FileInputComponent {
     const file = files[0];
 
     this.parseCsvFile(file).subscribe((csvContent) => {
-      const csvFileData: CsvFileData = { name: file.name, data: csvContent as any[] };
+      const csvFileData: CsvFileData = { name: file.name, data: csvContent as GcpData[] };
       this.load.emit(csvFileData);
+
       $event.target.value = null;
     });
   }
@@ -34,7 +42,7 @@ export class FileInputComponent {
     this.inputElement?.nativeElement.click();
   }
 
-  private parseCsvFile(csvFile: File): Observable<any[] | NgxCSVParserError> {
+  private parseCsvFile(csvFile: File): Observable<GcpData[] | NgxCSVParserError> {
     return this.ngxCsvParser.parse(csvFile, { header: true, delimiter: ',' }).pipe(
        catchError((error: NgxCSVParserError) => {
          console.log('Error', error);
