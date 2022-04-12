@@ -1,0 +1,8 @@
+<button (click)="openFileDialog()">choose csv file</button>
+
+<input
+    hidden
+    #inputElement
+    type="file"
+    (change)="uploadCsv($event)"
+/>

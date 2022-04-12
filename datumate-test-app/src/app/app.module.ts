@@ -4,10 +4,12 @@ import { AgGridModule } from 'ag-grid-angular';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
 
 import { AppComponent } from './app.component';
+import { CsvFileUploaderComponent } from './csv-file-uploader/csv-file-uploader.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CsvFileUploaderComponent
   ],
   imports: [
     BrowserModule,
