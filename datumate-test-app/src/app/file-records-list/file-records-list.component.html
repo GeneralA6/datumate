@@ -1,0 +1,7 @@
+<div class="list">
+    <app-file-record
+            *ngFor="let file of csvFiles"
+            [name]="file"
+            (delete)="deleteFileRecord($event)"
+    ></app-file-record>
+</div>
